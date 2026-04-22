@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You Bangaram🤍</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff5f7 0%, #fce4ec 50%, #f3e5f5 100%);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #4a4a4a;
+    }
+
+    /* Background Particles */
+    #particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255, 182, 193, 0.4);
+      font-size: 20px;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(110vh); }
+      to { transform: translateY(-10vh); }
+    }
+
+    /* Stages Logic */
+    .stage {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      z-index: 10;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .stage.active { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Glassmorphism Card */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 35px;
+      border-radius: 30px;
+      width: 100%;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    }
+
+    .letter-content {
+      line-height: 1.8;
+      font-size: 15px;
+      white-space: pre-line;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+
+    .intro-text { font-size: 28px; margin-bottom: 30px; }
+    .proposal-title { font-size: 32px; margin-bottom: 40px; color: #b088b0; }
+    .success-title { font-size: 28px; color: #ff8ba7; margin-top: 15px; }
+
+    button {
+      cursor: pointer;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .btn-primary {
+      padding: 16px 40px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid white;
+      border-radius: 50px;
+      color: #ffb6c1;
+      font-weight: 600;
+      font-size: 18px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, #ffb6c1, #c8a2c8);
+      color: white;
+      border-radius: 50px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .btn-yes {
+      background: #ffb6c1;
+      color: white;
+      padding: 15px 60px;
+      border-radius: 50px;
+      font-size: 22px;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(255, 182, 193, 0.6);
+      margin-bottom: 20px;
+    }
+
+    .btn-no {
+      padding: 12px 30px;
+      background: rgba(255, 255, 255, 0.5);
+      color: #888;
+      border-radius: 50px;
+      font-size: 16px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      min-height: 250px;
+    }
+
+    .hidden { display: none; }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 18px;
+      background: #ffb6c1;
+      margin-left: 3px;
+      animation: blink 0.8s infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    @media (max-width: 480px) {
+      .glass-card { padding: 25px; width: 90vw; }
+      .letter-content { font-size: 14px; }
+      .proposal-title { font-size: 26px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="particles-container"></div>
+
+  <section id="stage-intro" class="stage active">
+    <h1 class="intro-text">I have something special to tell you… 💌</h1>
+    <button class="btn-primary" onclick="goToStage('letter')">Tap to open my heart ❤️</button>
+  </section>
+
+  <section id="stage-letter" class="stage">
+    <div class="glass-card">
+      <div class="letter-content">
+        <span id="typewriter-text"></span><span id="cursor" class="cursor"></span>
+      </div>
+      <button id="continue-btn" class="btn-secondary hidden" onclick="goToStage('proposal')">Continue ✨</button>
+    </div>
+  </section>
+
+  <section id="stage-proposal" class="stage">
+    <h2 class="proposal-title">Bangaram… <br> will you be mine forever? 💖</h2>
+    <div class="btn-group">
+      <button id="yes-btn" class="btn-yes" onclick="celebrate()">YES</button>
+      <button id="no-btn" class="btn-no" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
+    </div>
+  </section>
+
+  <section id="stage-success" class="stage">
+    <div class="glass-card" style="text-align: center;">
+      <span style="font-size: 60px;">💍</span>
+      <h2 class="success-title">You just made me the <br> happiest person alive ❤️✨</h2>
+      <p style="margin-top: 20px; font-style: italic; color: #999;">— Forever Starts Now —</p>
+      <p style="margin-top: 10px; font-weight: bold; color: #c8a2c8;">— @Kishu 🦚</p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    const letterText = `
+Bangaram Love you raa 💗. Nannu nakante nuvve ekkuva love chesav and nannu nakante baaga ardham chesukunnav 🫠.But nenu ninnu chaala sarlu hurt chesa sorry bangaram 🥺 malli ninnu eppudu hurt cheyyanu raa niku mata isthunna🤍 and finally niku cheppedhi okkate naku nuvvu antey chaala istam nanna love you soo much bangaram 😭💗
+
+~@Kishu 🦚`;
+
+    function goToStage(stageId) {
+      document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+      document.getElementById(`stage-${stageId}`).classList.add('active');
+      if (stageId === 'letter') { startTypewriter(); }
+    }
+
+    function startTypewriter() {
+      const container = document.getElementById('typewriter-text');
+      const btn = document.getElementById('continue-btn');
+      const cursor = document.getElementById('cursor');
+      let i = 0;
+      const interval = setInterval(() => {
+        container.textContent = letterText.slice(0, i);
+        i++;
+        if (i > letterText.length) {
+          clearInterval(interval);
+          cursor.style.display = 'none';
+          btn.classList.remove('hidden');
+        }
+      }, 40);
+    }
+
+    function moveNoButton() {
+      const btn = document.getElementById('no-btn');
+      const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40) + 20;
+      const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40) + 20;
+      btn.style.position = 'fixed';
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+    }
+
+    function celebrate() {
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ffb6c1', '#ff8ba7', '#c8a2c8']
+      });
+      goToStage('success');
+    }
+
+    function createHearts() {
+      const container = document.getElementById('particles-container');
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        heart.style.delay = Math.random() * 2 + 's';
+        container.appendChild(heart);
+      }
+    }
+    createHearts();
+  </script>
+</body>
+</html>
