@@ -183,7 +183,6 @@
       align-items: center;
       width: 100%;
       min-height: 250px;
-      /* Space for button to move */
     }
 
     .hidden {
@@ -206,7 +205,6 @@
       }
     }
 
-    /* Mobile specific adjustments */
     @media (max-width: 480px) {
       .glass-card {
         padding: 25px;
@@ -268,9 +266,7 @@ Bangaram Love you raa 💗. Naku nakante nannu ekkuva love chesav and nannu naka
 ~@Kishu 🦚`;
 
     function goToStage(stageId) {
-      // Hide all stages
       document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
-      // Show target stage
       document.getElementById(`stage-${stageId}`).classList.add('active');
 
       if (stageId === 'letter') {
@@ -297,10 +293,41 @@ Bangaram Love you raa 💗. Naku nakante nannu ekkuva love chesav and nannu naka
 
     function moveNoButton() {
       const btn = document.getElementById('no-btn');
-      // Ensure button stays within visible bounds
       const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40) + 20;
       const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40) + 20;
 
       btn.style.position = 'fixed';
       btn.style.left = x + 'px';
-      btn.style.top = y + '
+      btn.style.top = y + 'px';
+    }
+
+    function celebrate() {
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ffb6c1', '#ff8ba7', '#c8a2c8']
+      });
+      goToStage('success');
+    }
+
+    // Initialize floating background hearts
+    function createHearts() {
+      const container = document.getElementById('particles-container');
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        heart.style.delay = Math.random() * 5 + 's';
+        heart.style.opacity = Math.random() * 0.5;
+        container.appendChild(heart);
+      }
+    }
+
+    createHearts();
+  </script>
+</body>
+
+</html>
