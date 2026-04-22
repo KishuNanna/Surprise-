@@ -46,13 +46,8 @@
     }
 
     @keyframes floatUp {
-      from {
-        transform: translateY(110vh);
-      }
-
-      to {
-        transform: translateY(-10vh);
-      }
+      from { transform: translateY(110vh); }
+      to { transform: translateY(-10vh); }
     }
 
     /* Stages Logic */
@@ -69,20 +64,11 @@
       animation: fadeIn 1s ease-in-out;
     }
 
-    .stage.active {
-      display: flex;
-    }
+    .stage.active { display: flex; }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Glassmorphism Card */
@@ -105,31 +91,15 @@
       margin-bottom: 20px;
     }
 
-    /* Typography */
-    h1,
-    h2 {
+    h1, h2 {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
     }
 
-    .intro-text {
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
+    .intro-text { font-size: 28px; margin-bottom: 30px; }
+    .proposal-title { font-size: 32px; margin-bottom: 40px; color: #b088b0; }
+    .success-title { font-size: 28px; color: #ff8ba7; margin-top: 15px; }
 
-    .proposal-title {
-      font-size: 32px;
-      margin-bottom: 40px;
-      color: #b088b0;
-    }
-
-    .success-title {
-      font-size: 28px;
-      color: #ff8ba7;
-      margin-top: 15px;
-    }
-
-    /* Buttons */
     button {
       cursor: pointer;
       border: none;
@@ -185,9 +155,7 @@
       min-height: 250px;
     }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
 
     .cursor {
       display: inline-block;
@@ -199,25 +167,12 @@
       vertical-align: middle;
     }
 
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
+    @keyframes blink { 50% { opacity: 0; } }
 
     @media (max-width: 480px) {
-      .glass-card {
-        padding: 25px;
-        width: 90vw;
-      }
-
-      .letter-content {
-        font-size: 14px;
-      }
-
-      .proposal-title {
-        font-size: 26px;
-      }
+      .glass-card { padding: 25px; width: 90vw; }
+      .letter-content { font-size: 14px; }
+      .proposal-title { font-size: 26px; }
     }
   </style>
 </head>
@@ -268,10 +223,7 @@ Bangaram Love you raa 💗. Naku nakante nannu ekkuva love chesav and nannu naka
     function goToStage(stageId) {
       document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
       document.getElementById(`stage-${stageId}`).classList.add('active');
-
-      if (stageId === 'letter') {
-        startTypewriter();
-      }
+      if (stageId === 'letter') { startTypewriter(); }
     }
 
     function startTypewriter() {
@@ -279,7 +231,6 @@ Bangaram Love you raa 💗. Naku nakante nannu ekkuva love chesav and nannu naka
       const btn = document.getElementById('continue-btn');
       const cursor = document.getElementById('cursor');
       let i = 0;
-
       const interval = setInterval(() => {
         container.textContent = letterText.slice(0, i);
         i++;
@@ -295,7 +246,6 @@ Bangaram Love you raa 💗. Naku nakante nannu ekkuva love chesav and nannu naka
       const btn = document.getElementById('no-btn');
       const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40) + 20;
       const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40) + 20;
-
       btn.style.position = 'fixed';
       btn.style.left = x + 'px';
       btn.style.top = y + 'px';
@@ -311,7 +261,6 @@ Bangaram Love you raa 💗. Naku nakante nannu ekkuva love chesav and nannu naka
       goToStage('success');
     }
 
-    // Initialize floating background hearts
     function createHearts() {
       const container = document.getElementById('particles-container');
       for (let i = 0; i < 15; i++) {
@@ -320,14 +269,11 @@ Bangaram Love you raa 💗. Naku nakante nannu ekkuva love chesav and nannu naka
         heart.innerHTML = '❤️';
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-        heart.style.delay = Math.random() * 5 + 's';
-        heart.style.opacity = Math.random() * 0.5;
+        heart.style.delay = Math.random() * 2 + 's';
         container.appendChild(heart);
       }
     }
-
     createHearts();
   </script>
 </body>
-
 </html>
